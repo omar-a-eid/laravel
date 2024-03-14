@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class postController extends Controller
 {
@@ -11,12 +12,17 @@ class postController extends Controller
      */
     public function index()
     {
-        return view("index");
+        $posts = Post::all();
+        return view("index", ['posts' => $posts]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->get();
+
+        return view("trash", ['posts' => $posts]);
+    }
+
     public function create()
     {
         return view("create");
@@ -36,7 +42,8 @@ class postController extends Controller
      */
     public function show(string $id)
     {
-        return view('show', ['id' => $id]);
+        $post = Post::find($id);
+        return view('show', ['post' => $post]);
     }
 
     /**
@@ -44,7 +51,8 @@ class postController extends Controller
      */
     public function edit(string $id)
     {
-        return view('edit')->with(['id' => $id]);
+        $post = Post::find($id);
+        return view('edit')->with(['post' => $post]);
     }
 
     /**
