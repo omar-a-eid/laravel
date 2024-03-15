@@ -75,6 +75,6 @@ class postController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
-        return  redirect()->route('posts.index');;
+        return  redirect()->route('posts.trash');;
     }
 }
