@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Posts</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
+@extends("layouts.main")
+
+@section("title", "Edit Post")
+
+@section("content")
   <h1>Edit Post</h1>
-  <form action="{{ route('posts.update', $post->id) }}" method="POST">
+  <form action="{{ route('posts.update', ['id' => $post->id]) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -30,7 +25,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
   </form>
-</div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+  @if(isset($success))
+  <p class="text-success">{{$success}}</p>
+  @endif
+@endsection

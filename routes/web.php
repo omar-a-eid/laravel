@@ -16,7 +16,7 @@ use App\Http\Controllers\postController;
 
 
 
-Route::get('/', [postController::class, 'index'])->name('posts.index');
+Route::get('/posts', [postController::class, 'index'])->name('posts.index');
 Route::get('/trash', [postController::class, 'trash'])->name('posts.trash');
 Route::get('posts/create', [postController::class, 'create'])->name('posts.create');
 Route::post('posts', [postController::class, 'store'])->name('posts.store');
