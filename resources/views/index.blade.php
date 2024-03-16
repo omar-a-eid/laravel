@@ -29,12 +29,14 @@
         <td>{{ $post->enabled ? 'Yes' : 'No' }}</td>
         <td>{{ $post->published_at }}</td>
         <td>
+          @if(Auth::check() && $post->user_id === Auth::id())
           <a class="btn btn-primary" href="{{ route('posts.edit', ['id' => $post->id]) }}">Edit</a>
           <form style="display:inline-block;" action="{{ route('posts.destroy', ['id' => $post->id]) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
+          @endif
         </td>
       </tr>
       @endforeach

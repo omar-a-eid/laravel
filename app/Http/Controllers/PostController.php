@@ -35,7 +35,7 @@ class postController extends Controller
     //StoreBlogPost
     public function store(StorePosts $request)
     {
-        $post = Post::create($request->all());
+        $post = auth()->user()->posts()->create($request->all());
         return redirect()->route('posts.index');
     }
 
@@ -63,6 +63,10 @@ class postController extends Controller
     public function update(StorePosts $request, string $id)
     {
         $post = Post::find($id);
+
+        if($post->user_id !== auth()->id()) {
+            return redirect()->route('posts.index');
+        }
         $post->update($request->all());
         // return view('edit', ['post' => $post,"success" => "The post has been updated successfully."]);
         return redirect()->route('posts.show', ['id' => $id]);
