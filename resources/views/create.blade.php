@@ -10,7 +10,7 @@
       @endforeach
     </ul>
   @endif --}}
-  <form action="{{ route('posts.store') }}" method="POST">
+  <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="title">Title</label>
@@ -37,6 +37,13 @@
       <label for="published_at">Published At</label>
       <input type="date" class="form-control" id="published_at" name="published_at" required value="{{old('published_at')}}">
       @error('published_at')
+        <div class="text-danger">{{ $message }}</div>
+      @enderror
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" class="form-control" id="image" name="image" required value="{{old('image')}}">
+      @error('image')
         <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>

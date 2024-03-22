@@ -45,5 +45,8 @@ Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.des
 
 
 Route::get('users', [UserController::class, "index"])->name('users.index');
+// Route::get('notifications', [UserController::class, "listNotifications"])->name('notifications.index')->middleware('autth');
+
 // Route::resource('posts', PostController::class);
+
 Route::fallback(fn() => 'Route not found');

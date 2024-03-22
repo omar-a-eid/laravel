@@ -35,7 +35,16 @@ class postController extends Controller
     //StoreBlogPost
     public function store(StorePosts $request)
     {
-        $post = auth()->user()->posts()->create($request->all());
+        $data = $request->validated();
+
+        $imagePath;
+        if($request->has('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('posts', ['disk' => 'public']);
+        }
+
+        $data['image'] = $imagePath;
+        
+        $post = auth()->user()->posts()->create($data);
         return redirect()->route('posts.index');
     }
 
